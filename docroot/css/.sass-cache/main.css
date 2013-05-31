@@ -1,0 +1,145 @@
+.note {
+  width: 18%;
+  padding: 1%;
+  position: absolute;
+  overflow: hidden;
+  cursor: move;
+  font-family: Trebuchet MS,Tahoma,Myriad Pro,Arial,Verdana,sans-serif;
+  /* Adding a CSS3 shadow below the note, in the browsers which support it: */
+  -moz-box-shadow: 2px 2px 0 #DDDDDD;
+  -webkit-box-shadow: 2px 2px 0 #DDDDDD;
+  box-shadow: 2px 2px 0 #DDDDDD; }
+
+#previewNote {
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  position: absolute;
+  overflow: hidden;
+  cursor: move;
+  font-family: Trebuchet MS,Tahoma,Myriad Pro,Arial,Verdana,sans-serif;
+  /* Adding a CSS3 shadow below the note, in the browsers which support it: */
+  -moz-box-shadow: 2px 2px 0 #DDDDDD;
+  -webkit-box-shadow: 2px 2px 0 #DDDDDD;
+  box-shadow: 2px 2px 0 #DDDDDD; }
+
+.sizeMini {
+  font-size: 8px; }
+
+.sizeMedium {
+  font-size: 15px; }
+
+.sizeMaxi {
+  font-size: 20px; }
+
+/*#fancy_ajax .note{ cursor:default; }*/
+/* Three styles for the notes: */
+.note.yellow, #previewNote.yellow, .color-chooser.yellow {
+  background-color: #FDFB8C;
+  border: 1px solid #DEDC65; }
+
+.note.blue, #previewNote.blue, .color-chooser.blue {
+  background-color: #A6E3FC;
+  border: 1px solid #75C5E7; }
+
+.note.green, #previewNote.green, .color-chooser.green {
+  background-color: #A5F88B;
+  border: 1px solid #98E775; }
+
+.note.red, #previewNote.red, .color-chooser.red {
+  background-color: #fb9696;
+  border: 1px solid #fc7d7d; }
+
+.note.purple, #previewNote.purple, .color-chooser.purple {
+  background-color: #f8a7fb;
+  border: 1px solid #f77dfc; }
+
+.note.orange, #previewNote.orange, .color-chooser.orange {
+  background-color: #fddd9a;
+  border: 1px solid #fbca5f; }
+
+/* Each note has a data span, which holds its ID */
+.data-note {
+  display: none; }
+
+/* The "Add a note" button: */
+/*#addButton{
+    position:absolute;
+    top:-70px;
+    left:0;
+}*/
+/* Green button class: */
+/*a.green-button,a.green-button:visited{
+	color:black;
+	display:block;
+	font-size:10px;
+	font-weight:bold;
+	height:15px;
+	padding:6px 5px 4px;
+	text-align:center;
+	width:60px;
+
+	text-shadow:1px 1px 1px #DDDDDD;
+	background:url(img/button_green.png) no-repeat left top;
+}*/
+/*a.green-button:hover{
+	text-decoration:none;
+	background-position:left bottom;
+}*/
+#stickynotes {
+  /* Contains all the notes and limits their movement: */
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  height: 500px;
+  z-index: 10; }
+
+#noteData {
+  /* The input form in the pop-up: */
+  height: 200px;
+  margin: 30px 0 0 200px;
+  width: 350px;
+  float: left; }
+
+.note-form label {
+  display: block;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding-bottom: 3px; }
+
+.note-form textarea, .note-form input[type=text] {
+  background-color: #FCFCFC;
+  border: 1px solid #AAAAAA;
+  font-family: Arial,Verdana,sans-serif;
+  font-size: 16px;
+  height: 60px;
+  padding: 5px;
+  width: 300px;
+  margin-bottom: 10px; }
+
+.note-form input[type=text] {
+  height: auto; }
+
+.color-chooser {
+  /* The color swatches in the form: */
+  cursor: pointer;
+  float: left;
+  height: 10px;
+  margin: 0 5px 0 0;
+  width: 10px; }
+
+#note-submit {
+  margin: 20px auto; }
+
+.avatar-note {
+  position: absolute;
+  width: 16%;
+  bottom: 5%;
+  right: 5%; }
+
+/***** Selectable css *******/
+.selectable .ui-selected {
+  box-shadow: 0 0 10px 1px #000; }
+

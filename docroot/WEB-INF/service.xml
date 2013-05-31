@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+<service-builder package-path="com.stickynotes">
+	<author>mbelda</author>
+	<namespace>stickynotes</namespace>
+    <entity name="stickyNote" local-service="true" remote-service="false">
+        <column name="companyId" type="long"></column>
+        <column name="groupId" type="long"></column>
+        <column name="userId"  type="long"></column>
+        <column name="plid"    type="long"></column>
+        
+        <column name="stickyNoteId" type="long" primary="true"></column>
+        <column name="text" type="String"></column>
+        <column name="positionX" type="double"></column>
+        <column name="positionY" type="double"></column>
+        <column name="positionZ" type="long"></column>        
+        <column name="color" type="String"></column>
+        <column name="dateCreated" type="Date"></column>
+        <column name="dateModified" type="Date"></column>
+        
+        <order by="asc">
+            <order-column name="dateCreated" order-by="asc"></order-column>
+        </order>
+        
+        <!-- Finder Methods  
+        /LPS-30606 => Finders / indexes that cannot be deployed with security manager enabled
+	
+		<finder name="Group" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>			
+		<finder name="GroupAndUser" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="userId" />
+		</finder>
+		<finder name="Plid" return-type="Collection">
+			<finder-column name="plid" />			
+		</finder>
+		<finder name="PlidUser" return-type="Collection">
+			<finder-column name="plid" />	
+			<finder-column name="userId" />		
+		</finder>
+		-->
+    </entity>
+</service-builder>

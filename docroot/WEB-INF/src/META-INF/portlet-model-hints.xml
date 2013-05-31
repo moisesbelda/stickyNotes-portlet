@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.stickynotes.model.stickyNote">
+		<field name="companyId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="userId" type="long" />
+		<field name="plid" type="long" />
+		<field name="stickyNoteId" type="long" />
+		<field name="text" type="String">
+			<hint name="max-length">100</hint>
+		</field>
+		<field name="positionX" type="double" />
+		<field name="positionY" type="double" />
+		<field name="positionZ" type="long" />
+		<field name="color" type="String" />
+		<field name="dateCreated" type="Date" />
+		<field name="dateModified" type="Date" />
+	</model>
+</model-hints>

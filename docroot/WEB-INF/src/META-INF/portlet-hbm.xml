@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.stickynotes.model.stickyNote" />
+	<class name="com.stickynotes.model.impl.stickyNoteImpl" table="stickynotes_stickyNote">
+		<cache usage="read-write" />
+		<id name="stickyNoteId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="plid" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="text" type="com.liferay.portal.dao.orm.hibernate.StringType" column="text_" />
+		<property name="positionX" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="positionY" type="com.liferay.portal.dao.orm.hibernate.DoubleType" />
+		<property name="positionZ" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="color" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="dateCreated" type="org.hibernate.type.TimestampType" />
+		<property name="dateModified" type="org.hibernate.type.TimestampType" />
+	</class>
+</hibernate-mapping>

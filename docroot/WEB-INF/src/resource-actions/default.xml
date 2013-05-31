@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource-action-mapping>
+	<portlet-resource>
+		<portlet-name>stickyNotes</portlet-name>
+		<permissions>
+			<supports>
+				<action-key>ADD_TO_PAGE</action-key>
+				<action-key>CONFIGURATION</action-key>
+				<action-key>VIEW</action-key>				
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>				
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported />
+		</permissions>
+	</portlet-resource>
+	<model-resource>
+		<model-name>com.stickynotes.model</model-name>
+		<portlet-ref>
+			<portlet-name>stickyNotes</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>ADD_NOTE</action-key>
+				<action-key>UPDATE_NOTE</action-key>
+				<action-key>DELETE_NOTE</action-key>
+				<action-key>MOVE_NOTE</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>ADD_NOTE</action-key>
+				<action-key>UPDATE_NOTE</action-key>
+				<action-key>DELETE_NOTE</action-key>
+				<action-key>MOVE_NOTE</action-key>
+			</site-member-defaults>
+			<guest-defaults />
+			<guest-unsupported>
+				<action-key>ADD_NOTE</action-key>
+				<action-key>UPDATE_NOTE</action-key>
+				<action-key>DELETE_NOTE</action-key>
+				<action-key>MOVE_NOTE</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+</resource-action-mapping>
+	    
