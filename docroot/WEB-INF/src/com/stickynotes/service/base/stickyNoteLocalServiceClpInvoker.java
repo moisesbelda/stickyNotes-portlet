@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,7 +19,8 @@ import com.stickynotes.service.stickyNoteLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author mbelda
+ * @generated
  */
 public class stickyNoteLocalServiceClpInvoker {
 	public stickyNoteLocalServiceClpInvoker() {
@@ -68,77 +69,78 @@ public class stickyNoteLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchstickyNote";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getstickyNote";
+		_methodName10 = "fetchstickyNote";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getstickyNote";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getstickyNotes";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getstickyNotesCount";
+		_methodName13 = "getstickyNotes";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updatestickyNote";
+		_methodName14 = "getstickyNotesCount";
 
-		_methodParameterTypes14 = new String[] {
-				"com.stickynotes.model.stickyNote"
-			};
+		_methodParameterTypes14 = new String[] {  };
 
 		_methodName15 = "updatestickyNote";
 
 		_methodParameterTypes15 = new String[] {
-				"com.stickynotes.model.stickyNote", "boolean"
-			};
-
-		_methodName36 = "getBeanIdentifier";
-
-		_methodParameterTypes36 = new String[] {  };
-
-		_methodName37 = "setBeanIdentifier";
-
-		_methodParameterTypes37 = new String[] { "java.lang.String" };
-
-		_methodName42 = "addstickyNote";
-
-		_methodParameterTypes42 = new String[] {
-				"com.stickynotes.model.stickyNote", "long"
-			};
-
-		_methodName43 = "deletestickyNote";
-
-		_methodParameterTypes43 = new String[] { "long" };
-
-		_methodName44 = "deletestickyNote";
-
-		_methodParameterTypes44 = new String[] {
 				"com.stickynotes.model.stickyNote"
 			};
 
-		_methodName45 = "getStickyNotesByGroup";
+		_methodName32 = "getBeanIdentifier";
 
-		_methodParameterTypes45 = new String[] { "long" };
+		_methodParameterTypes32 = new String[] {  };
 
-		_methodName46 = "getStickyNotesByGroupAndUser";
+		_methodName33 = "setBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] { "long", "long" };
+		_methodParameterTypes33 = new String[] { "java.lang.String" };
 
-		_methodName47 = "getStickyNotesByPlid";
+		_methodName38 = "addstickyNote";
 
-		_methodParameterTypes47 = new String[] { "long" };
+		_methodParameterTypes38 = new String[] {
+				"com.stickynotes.model.stickyNote", "long"
+			};
 
-		_methodName48 = "getStickyNotesByPlidAndUser";
+		_methodName39 = "deletestickyNote";
 
-		_methodParameterTypes48 = new String[] { "long", "long" };
+		_methodParameterTypes39 = new String[] { "long" };
+
+		_methodName40 = "deletestickyNote";
+
+		_methodParameterTypes40 = new String[] {
+				"com.stickynotes.model.stickyNote"
+			};
+
+		_methodName41 = "getStickyNotesByGroup";
+
+		_methodParameterTypes41 = new String[] { "long" };
+
+		_methodName42 = "getStickyNotesByGroupAndUser";
+
+		_methodParameterTypes42 = new String[] { "long", "long" };
+
+		_methodName43 = "getStickyNotesByPlid";
+
+		_methodParameterTypes43 = new String[] { "long" };
+
+		_methodName44 = "getStickyNotesByPlidAndUser";
+
+		_methodParameterTypes44 = new String[] { "long", "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -195,85 +197,87 @@ public class stickyNoteLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.fetchstickyNote(((Long)arguments[0]).longValue());
+			return stickyNoteLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getstickyNote(((Long)arguments[0]).longValue());
+			return stickyNoteLocalServiceUtil.fetchstickyNote(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return stickyNoteLocalServiceUtil.getstickyNote(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getstickyNotes(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return stickyNoteLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getstickyNotesCount();
+			return stickyNoteLocalServiceUtil.getstickyNotes(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.updatestickyNote((com.stickynotes.model.stickyNote)arguments[0]);
+			return stickyNoteLocalServiceUtil.getstickyNotesCount();
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.updatestickyNote((com.stickynotes.model.stickyNote)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+			return stickyNoteLocalServiceUtil.updatestickyNote((com.stickynotes.model.stickyNote)arguments[0]);
 		}
 
-		if (_methodName36.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+		if (_methodName32.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
 			return stickyNoteLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName37.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+		if (_methodName33.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
 			stickyNoteLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
+		}
+
+		if (_methodName38.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+			return stickyNoteLocalServiceUtil.addstickyNote((com.stickynotes.model.stickyNote)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName39.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+			return stickyNoteLocalServiceUtil.deletestickyNote(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+			return stickyNoteLocalServiceUtil.deletestickyNote((com.stickynotes.model.stickyNote)arguments[0]);
+		}
+
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+			return stickyNoteLocalServiceUtil.getStickyNotesByGroup(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName42.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.addstickyNote((com.stickynotes.model.stickyNote)arguments[0],
+			return stickyNoteLocalServiceUtil.getStickyNotesByGroupAndUser(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName43.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.deletestickyNote(((Long)arguments[0]).longValue());
+			return stickyNoteLocalServiceUtil.getStickyNotesByPlid(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName44.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.deletestickyNote((com.stickynotes.model.stickyNote)arguments[0]);
-		}
-
-		if (_methodName45.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getStickyNotesByGroup(((Long)arguments[0]).longValue());
-		}
-
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getStickyNotesByGroupAndUser(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue());
-		}
-
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
-			return stickyNoteLocalServiceUtil.getStickyNotesByPlid(((Long)arguments[0]).longValue());
-		}
-
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			return stickyNoteLocalServiceUtil.getStickyNotesByPlidAndUser(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
@@ -313,22 +317,22 @@ public class stickyNoteLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName36;
-	private String[] _methodParameterTypes36;
-	private String _methodName37;
-	private String[] _methodParameterTypes37;
+	private String _methodName32;
+	private String[] _methodParameterTypes32;
+	private String _methodName33;
+	private String[] _methodParameterTypes33;
+	private String _methodName38;
+	private String[] _methodParameterTypes38;
+	private String _methodName39;
+	private String[] _methodParameterTypes39;
+	private String _methodName40;
+	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
 	private String _methodName43;
 	private String[] _methodParameterTypes43;
 	private String _methodName44;
 	private String[] _methodParameterTypes44;
-	private String _methodName45;
-	private String[] _methodParameterTypes45;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName48;
-	private String[] _methodParameterTypes48;
 }

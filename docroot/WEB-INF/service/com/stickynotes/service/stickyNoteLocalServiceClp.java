@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author mbelda
+ * @generated
  */
 public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 	public stickyNoteLocalServiceClp(
@@ -69,36 +70,37 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchstickyNote";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getstickyNote";
+		_methodName10 = "fetchstickyNote";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getstickyNote";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getstickyNotes";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getstickyNotesCount";
+		_methodName13 = "getstickyNotes";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updatestickyNote";
+		_methodName14 = "getstickyNotesCount";
 
-		_methodParameterTypes14 = new String[] {
-				"com.stickynotes.model.stickyNote"
-			};
+		_methodParameterTypes14 = new String[] {  };
 
 		_methodName15 = "updatestickyNote";
 
 		_methodParameterTypes15 = new String[] {
-				"com.stickynotes.model.stickyNote", "boolean"
+				"com.stickynotes.model.stickyNote"
 			};
 
 		_methodName16 = "getBeanIdentifier";
@@ -132,6 +134,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		_methodParameterTypes23 = new String[] { "long", "long" };
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote addstickyNote(
 		com.stickynotes.model.stickyNote stickyNote)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -161,6 +164,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote createstickyNote(long stickyNoteId) {
 		Object returnObj = null;
 
@@ -183,6 +187,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote deletestickyNote(long stickyNoteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -215,6 +220,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote deletestickyNote(
 		com.stickynotes.model.stickyNote stickyNote)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -244,6 +250,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -266,6 +273,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -296,6 +304,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -332,6 +341,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -372,6 +382,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -401,13 +412,49 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
-	public com.stickynotes.model.stickyNote fetchstickyNote(long stickyNoteId)
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { stickyNoteId });
+					_methodParameterTypes9,
+					new Object[] {
+						ClpSerializer.translateInput(dynamicQuery),
+						
+					ClpSerializer.translateInput(projection)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Long)returnObj).longValue();
+	}
+
+	@Override
+	public com.stickynotes.model.stickyNote fetchstickyNote(long stickyNoteId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName10,
+					_methodParameterTypes10, new Object[] { stickyNoteId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -428,14 +475,15 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote getstickyNote(long stickyNoteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10, new Object[] { stickyNoteId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11, new Object[] { stickyNoteId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -460,6 +508,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -467,8 +516,8 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -494,14 +543,15 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getstickyNotes(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -522,13 +572,14 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List<com.stickynotes.model.stickyNote>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getstickyNotesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -549,14 +600,15 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote updatestickyNote(
 		com.stickynotes.model.stickyNote stickyNote)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
 					new Object[] { ClpSerializer.translateInput(stickyNote) });
 		}
 		catch (Throwable t) {
@@ -578,35 +630,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.stickynotes.model.stickyNote updatestickyNote(
-		com.stickynotes.model.stickyNote stickyNote, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15,
-					new Object[] { ClpSerializer.translateInput(stickyNote), merge });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
-	}
-
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -629,6 +653,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
@@ -648,12 +673,14 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote addstickyNote(
 		com.stickynotes.model.stickyNote newStickyNote, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -692,6 +719,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (com.stickynotes.model.stickyNote)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByGroup(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -720,6 +748,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List<com.stickynotes.model.stickyNote>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByGroupAndUser(
 		long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -748,6 +777,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List<com.stickynotes.model.stickyNote>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByPlid(
 		long plid) throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -775,6 +805,7 @@ public class stickyNoteLocalServiceClp implements stickyNoteLocalService {
 		return (java.util.List<com.stickynotes.model.stickyNote>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByPlidAndUser(
 		long plid, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {

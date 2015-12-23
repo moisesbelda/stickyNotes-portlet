@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.stickynotes.model.stickyNote;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class stickyNoteCacheModel implements CacheModel<stickyNote>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(25);
@@ -66,6 +69,7 @@ public class stickyNoteCacheModel implements CacheModel<stickyNote>,
 		return sb.toString();
 	}
 
+	@Override
 	public stickyNote toEntityModel() {
 		stickyNoteImpl stickyNoteImpl = new stickyNoteImpl();
 
@@ -110,6 +114,53 @@ public class stickyNoteCacheModel implements CacheModel<stickyNote>,
 		stickyNoteImpl.resetOriginalValues();
 
 		return stickyNoteImpl;
+	}
+
+	@Override
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		companyId = objectInput.readLong();
+		groupId = objectInput.readLong();
+		userId = objectInput.readLong();
+		plid = objectInput.readLong();
+		stickyNoteId = objectInput.readLong();
+		text = objectInput.readUTF();
+		positionX = objectInput.readDouble();
+		positionY = objectInput.readDouble();
+		positionZ = objectInput.readLong();
+		color = objectInput.readUTF();
+		dateCreated = objectInput.readLong();
+		dateModified = objectInput.readLong();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(groupId);
+		objectOutput.writeLong(userId);
+		objectOutput.writeLong(plid);
+		objectOutput.writeLong(stickyNoteId);
+
+		if (text == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(text);
+		}
+
+		objectOutput.writeDouble(positionX);
+		objectOutput.writeDouble(positionY);
+		objectOutput.writeLong(positionZ);
+
+		if (color == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(color);
+		}
+
+		objectOutput.writeLong(dateCreated);
+		objectOutput.writeLong(dateModified);
 	}
 
 	public long companyId;

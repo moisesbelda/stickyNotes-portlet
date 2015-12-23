@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,6 +14,7 @@
 
 package com.stickynotes.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -25,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link stickyNote}.
  * </p>
  *
- * @author    mbelda
- * @see       stickyNote
+ * @author mbelda
+ * @see stickyNote
  * @generated
  */
 public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
@@ -34,14 +35,17 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 		_stickyNote = stickyNote;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return stickyNote.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return stickyNote.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -61,6 +65,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long companyId = (Long)attributes.get("companyId");
 
@@ -140,6 +145,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the primary key of this sticky note
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _stickyNote.getPrimaryKey();
 	}
@@ -149,6 +155,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param primaryKey the primary key of this sticky note
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_stickyNote.setPrimaryKey(primaryKey);
 	}
@@ -158,6 +165,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the company ID of this sticky note
 	*/
+	@Override
 	public long getCompanyId() {
 		return _stickyNote.getCompanyId();
 	}
@@ -167,6 +175,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param companyId the company ID of this sticky note
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_stickyNote.setCompanyId(companyId);
 	}
@@ -176,6 +185,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the group ID of this sticky note
 	*/
+	@Override
 	public long getGroupId() {
 		return _stickyNote.getGroupId();
 	}
@@ -185,6 +195,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param groupId the group ID of this sticky note
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_stickyNote.setGroupId(groupId);
 	}
@@ -194,6 +205,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the user ID of this sticky note
 	*/
+	@Override
 	public long getUserId() {
 		return _stickyNote.getUserId();
 	}
@@ -203,6 +215,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param userId the user ID of this sticky note
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_stickyNote.setUserId(userId);
 	}
@@ -213,6 +226,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	* @return the user uuid of this sticky note
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNote.getUserUuid();
@@ -223,6 +237,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param userUuid the user uuid of this sticky note
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_stickyNote.setUserUuid(userUuid);
 	}
@@ -232,6 +247,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the plid of this sticky note
 	*/
+	@Override
 	public long getPlid() {
 		return _stickyNote.getPlid();
 	}
@@ -241,6 +257,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param plid the plid of this sticky note
 	*/
+	@Override
 	public void setPlid(long plid) {
 		_stickyNote.setPlid(plid);
 	}
@@ -250,6 +267,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the sticky note ID of this sticky note
 	*/
+	@Override
 	public long getStickyNoteId() {
 		return _stickyNote.getStickyNoteId();
 	}
@@ -259,6 +277,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param stickyNoteId the sticky note ID of this sticky note
 	*/
+	@Override
 	public void setStickyNoteId(long stickyNoteId) {
 		_stickyNote.setStickyNoteId(stickyNoteId);
 	}
@@ -268,6 +287,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the text of this sticky note
 	*/
+	@Override
 	public java.lang.String getText() {
 		return _stickyNote.getText();
 	}
@@ -277,6 +297,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param text the text of this sticky note
 	*/
+	@Override
 	public void setText(java.lang.String text) {
 		_stickyNote.setText(text);
 	}
@@ -286,6 +307,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the position x of this sticky note
 	*/
+	@Override
 	public double getPositionX() {
 		return _stickyNote.getPositionX();
 	}
@@ -295,6 +317,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param positionX the position x of this sticky note
 	*/
+	@Override
 	public void setPositionX(double positionX) {
 		_stickyNote.setPositionX(positionX);
 	}
@@ -304,6 +327,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the position y of this sticky note
 	*/
+	@Override
 	public double getPositionY() {
 		return _stickyNote.getPositionY();
 	}
@@ -313,6 +337,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param positionY the position y of this sticky note
 	*/
+	@Override
 	public void setPositionY(double positionY) {
 		_stickyNote.setPositionY(positionY);
 	}
@@ -322,6 +347,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the position z of this sticky note
 	*/
+	@Override
 	public long getPositionZ() {
 		return _stickyNote.getPositionZ();
 	}
@@ -331,6 +357,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param positionZ the position z of this sticky note
 	*/
+	@Override
 	public void setPositionZ(long positionZ) {
 		_stickyNote.setPositionZ(positionZ);
 	}
@@ -340,6 +367,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the color of this sticky note
 	*/
+	@Override
 	public java.lang.String getColor() {
 		return _stickyNote.getColor();
 	}
@@ -349,6 +377,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param color the color of this sticky note
 	*/
+	@Override
 	public void setColor(java.lang.String color) {
 		_stickyNote.setColor(color);
 	}
@@ -358,6 +387,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the date created of this sticky note
 	*/
+	@Override
 	public java.util.Date getDateCreated() {
 		return _stickyNote.getDateCreated();
 	}
@@ -367,6 +397,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param dateCreated the date created of this sticky note
 	*/
+	@Override
 	public void setDateCreated(java.util.Date dateCreated) {
 		_stickyNote.setDateCreated(dateCreated);
 	}
@@ -376,6 +407,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @return the date modified of this sticky note
 	*/
+	@Override
 	public java.util.Date getDateModified() {
 		return _stickyNote.getDateModified();
 	}
@@ -385,42 +417,64 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 	*
 	* @param dateModified the date modified of this sticky note
 	*/
+	@Override
 	public void setDateModified(java.util.Date dateModified) {
 		_stickyNote.setDateModified(dateModified);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _stickyNote.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_stickyNote.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _stickyNote.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_stickyNote.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _stickyNote.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _stickyNote.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_stickyNote.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _stickyNote.getExpandoBridge();
 	}
 
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.model.BaseModel<?> baseModel) {
+		_stickyNote.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+		_stickyNote.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_stickyNote.setExpandoBridgeAttributes(serviceContext);
@@ -431,6 +485,7 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 		return new stickyNoteWrapper((stickyNote)_stickyNote.clone());
 	}
 
+	@Override
 	public int compareTo(com.stickynotes.model.stickyNote stickyNote) {
 		return _stickyNote.compareTo(stickyNote);
 	}
@@ -440,12 +495,19 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 		return _stickyNote.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.stickynotes.model.stickyNote> toCacheModel() {
 		return _stickyNote.toCacheModel();
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote toEscapedModel() {
 		return new stickyNoteWrapper(_stickyNote.toEscapedModel());
+	}
+
+	@Override
+	public com.stickynotes.model.stickyNote toUnescapedModel() {
+		return new stickyNoteWrapper(_stickyNote.toUnescapedModel());
 	}
 
 	@Override
@@ -453,26 +515,49 @@ public class stickyNoteWrapper implements stickyNote, ModelWrapper<stickyNote> {
 		return _stickyNote.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _stickyNote.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_stickyNote.persist();
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof stickyNoteWrapper)) {
+			return false;
+		}
+
+		stickyNoteWrapper stickyNoteWrapper = (stickyNoteWrapper)obj;
+
+		if (Validator.equals(_stickyNote, stickyNoteWrapper._stickyNote)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	/**
-	 * @deprecated Renamed to {@link #getWrappedModel}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
 	public stickyNote getWrappedstickyNote() {
 		return _stickyNote;
 	}
 
+	@Override
 	public stickyNote getWrappedModel() {
 		return _stickyNote;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_stickyNote.resetOriginalValues();
 	}
