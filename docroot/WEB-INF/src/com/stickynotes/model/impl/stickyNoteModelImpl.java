@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -95,26 +95,32 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 	public stickyNoteModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _stickyNoteId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setStickyNoteId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_stickyNoteId);
+		return _stickyNoteId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return stickyNote.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return stickyNote.class.getName();
 	}
@@ -214,54 +220,67 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public long getPlid() {
 		return _plid;
 	}
 
+	@Override
 	public void setPlid(long plid) {
 		_plid = plid;
 	}
 
+	@Override
 	public long getStickyNoteId() {
 		return _stickyNoteId;
 	}
 
+	@Override
 	public void setStickyNoteId(long stickyNoteId) {
 		_stickyNoteId = stickyNoteId;
 	}
 
+	@Override
 	public String getText() {
 		if (_text == null) {
 			return StringPool.BLANK;
@@ -271,34 +290,42 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 		}
 	}
 
+	@Override
 	public void setText(String text) {
 		_text = text;
 	}
 
+	@Override
 	public double getPositionX() {
 		return _positionX;
 	}
 
+	@Override
 	public void setPositionX(double positionX) {
 		_positionX = positionX;
 	}
 
+	@Override
 	public double getPositionY() {
 		return _positionY;
 	}
 
+	@Override
 	public void setPositionY(double positionY) {
 		_positionY = positionY;
 	}
 
+	@Override
 	public long getPositionZ() {
 		return _positionZ;
 	}
 
+	@Override
 	public void setPositionZ(long positionZ) {
 		_positionZ = positionZ;
 	}
 
+	@Override
 	public String getColor() {
 		if (_color == null) {
 			return StringPool.BLANK;
@@ -308,22 +335,27 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 		}
 	}
 
+	@Override
 	public void setColor(String color) {
 		_color = color;
 	}
 
+	@Override
 	public Date getDateCreated() {
 		return _dateCreated;
 	}
 
+	@Override
 	public void setDateCreated(Date dateCreated) {
 		_dateCreated = dateCreated;
 	}
 
+	@Override
 	public Date getDateModified() {
 		return _dateModified;
 	}
 
+	@Override
 	public void setDateModified(Date dateModified) {
 		_dateModified = dateModified;
 	}
@@ -343,13 +375,12 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 
 	@Override
 	public stickyNote toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (stickyNote)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (stickyNote)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
 	}
 
 	@Override
@@ -374,6 +405,7 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 		return stickyNoteImpl;
 	}
 
+	@Override
 	public int compareTo(stickyNote stickyNote) {
 		int value = 0;
 
@@ -388,18 +420,15 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof stickyNote)) {
 			return false;
 		}
 
-		stickyNote stickyNote = null;
-
-		try {
-			stickyNote = (stickyNote)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		stickyNote stickyNote = (stickyNote)obj;
 
 		long primaryKey = stickyNote.getPrimaryKey();
 
@@ -510,6 +539,7 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(40);
 
@@ -572,7 +602,7 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 	}
 
 	private static ClassLoader _classLoader = stickyNote.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			stickyNote.class
 		};
 	private long _companyId;
@@ -588,5 +618,5 @@ public class stickyNoteModelImpl extends BaseModelImpl<stickyNote>
 	private String _color;
 	private Date _dateCreated;
 	private Date _dateModified;
-	private stickyNote _escapedModelProxy;
+	private stickyNote _escapedModel;
 }

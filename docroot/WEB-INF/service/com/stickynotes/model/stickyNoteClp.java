@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -17,16 +17,18 @@ package com.stickynotes.model;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.DateUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
+import com.stickynotes.service.ClpSerializer;
 import com.stickynotes.service.stickyNoteLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -40,26 +42,32 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 	public stickyNoteClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return stickyNote.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return stickyNote.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _stickyNoteId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setStickyNoteId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_stickyNoteId);
+		return _stickyNoteId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -159,108 +167,290 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_stickyNoteRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_stickyNoteRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_stickyNoteRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public long getPlid() {
 		return _plid;
 	}
 
+	@Override
 	public void setPlid(long plid) {
 		_plid = plid;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPlid", long.class);
+
+				method.invoke(_stickyNoteRemoteModel, plid);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getStickyNoteId() {
 		return _stickyNoteId;
 	}
 
+	@Override
 	public void setStickyNoteId(long stickyNoteId) {
 		_stickyNoteId = stickyNoteId;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStickyNoteId", long.class);
+
+				method.invoke(_stickyNoteRemoteModel, stickyNoteId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public String getText() {
 		return _text;
 	}
 
+	@Override
 	public void setText(String text) {
 		_text = text;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setText", String.class);
+
+				method.invoke(_stickyNoteRemoteModel, text);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public double getPositionX() {
 		return _positionX;
 	}
 
+	@Override
 	public void setPositionX(double positionX) {
 		_positionX = positionX;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPositionX", double.class);
+
+				method.invoke(_stickyNoteRemoteModel, positionX);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public double getPositionY() {
 		return _positionY;
 	}
 
+	@Override
 	public void setPositionY(double positionY) {
 		_positionY = positionY;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPositionY", double.class);
+
+				method.invoke(_stickyNoteRemoteModel, positionY);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public long getPositionZ() {
 		return _positionZ;
 	}
 
+	@Override
 	public void setPositionZ(long positionZ) {
 		_positionZ = positionZ;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPositionZ", long.class);
+
+				method.invoke(_stickyNoteRemoteModel, positionZ);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public String getColor() {
 		return _color;
 	}
 
+	@Override
 	public void setColor(String color) {
 		_color = color;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setColor", String.class);
+
+				method.invoke(_stickyNoteRemoteModel, color);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getDateCreated() {
 		return _dateCreated;
 	}
 
+	@Override
 	public void setDateCreated(Date dateCreated) {
 		_dateCreated = dateCreated;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDateCreated", Date.class);
+
+				method.invoke(_stickyNoteRemoteModel, dateCreated);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
+	@Override
 	public Date getDateModified() {
 		return _dateModified;
 	}
 
+	@Override
 	public void setDateModified(Date dateModified) {
 		_dateModified = dateModified;
+
+		if (_stickyNoteRemoteModel != null) {
+			try {
+				Class<?> clazz = _stickyNoteRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDateModified", Date.class);
+
+				method.invoke(_stickyNoteRemoteModel, dateModified);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public BaseModel<?> getstickyNoteRemoteModel() {
@@ -271,6 +461,48 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 		_stickyNoteRemoteModel = stickyNoteRemoteModel;
 	}
 
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _stickyNoteRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_stickyNoteRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
+	}
+
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			stickyNoteLocalServiceUtil.addstickyNote(this);
@@ -282,7 +514,7 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 
 	@Override
 	public stickyNote toEscapedModel() {
-		return (stickyNote)Proxy.newProxyInstance(stickyNote.class.getClassLoader(),
+		return (stickyNote)ProxyUtil.newProxyInstance(stickyNote.class.getClassLoader(),
 			new Class[] { stickyNote.class }, new AutoEscapeBeanHandler(this));
 	}
 
@@ -306,6 +538,7 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(stickyNote stickyNote) {
 		int value = 0;
 
@@ -320,18 +553,15 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof stickyNoteClp)) {
 			return false;
 		}
 
-		stickyNoteClp stickyNote = null;
-
-		try {
-			stickyNote = (stickyNoteClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		stickyNoteClp stickyNote = (stickyNoteClp)obj;
 
 		long primaryKey = stickyNote.getPrimaryKey();
 
@@ -341,6 +571,10 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 		else {
 			return false;
 		}
+	}
+
+	public Class<?> getClpSerializerClass() {
+		return _clpSerializerClass;
 	}
 
 	@Override
@@ -381,6 +615,7 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(40);
 
@@ -456,4 +691,5 @@ public class stickyNoteClp extends BaseModelImpl<stickyNote>
 	private Date _dateCreated;
 	private Date _dateModified;
 	private BaseModel<?> _stickyNoteRemoteModel;
+	private Class<?> _clpSerializerClass = com.stickynotes.service.ClpSerializer.class;
 }

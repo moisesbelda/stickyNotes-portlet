@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -245,35 +245,60 @@ public interface stickyNoteModel extends BaseModel<stickyNote> {
 	 */
 	public void setDateModified(Date dateModified);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
+	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
+
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
+	@Override
 	public Object clone();
 
-	public int compareTo(stickyNote stickyNote);
+	@Override
+	public int compareTo(com.stickynotes.model.stickyNote stickyNote);
 
+	@Override
 	public int hashCode();
 
-	public CacheModel<stickyNote> toCacheModel();
+	@Override
+	public CacheModel<com.stickynotes.model.stickyNote> toCacheModel();
 
-	public stickyNote toEscapedModel();
+	@Override
+	public com.stickynotes.model.stickyNote toEscapedModel();
 
+	@Override
+	public com.stickynotes.model.stickyNote toUnescapedModel();
+
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

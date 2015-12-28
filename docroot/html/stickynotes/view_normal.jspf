@@ -1,0 +1,251 @@
+<portlet:renderURL var="addNoteURL" windowState="POP_UP" >
+	<portlet:param name="editNote" value="true" />
+</portlet:renderURL>
+<portlet:renderURL var="reloadURL" />
+
+<portlet:resourceURL id="updatePositionURL" var="updatePositionURL"></portlet:resourceURL>
+<portlet:resourceURL id="deleteNoteURL"     var="deleteNoteURL"></portlet:resourceURL>
+<portlet:actionURL name='addStickyNote' var="saveNewNoteURL" />
+<portlet:actionURL name='updateStickyNote' var="saveUpdatedNoteURL" />
+
+<aui:button-row>
+	<c:if test='<%= hasConfigurePermission %>'>
+		<liferay-security:permissionsURL
+			modelResource="com.stickynotes.model"
+			modelResourceDescription="stickynotes-top-level-actions"
+			resourcePrimKey="<%= String.valueOf(scopeGroupId) %>"
+			var="permissionsURL" />
+		<aui:button value="permissions" onClick="<%= permissionsURL %>" />
+	</c:if>
+	<c:if test='<%= hasAddPermission %>'>		
+		<aui:button name="addNoteButton" value="add-note" onClick="javascript:addNote();" />
+	</c:if>	
+	<c:if test='<%= hasUpdatePermission %>'>	    
+		<aui:button name="editNoteButton" value="edit-note" onClick="javascript:editNote();" />
+	</c:if>
+	<c:if test='<%= hasDeletePermission %>'>		
+		<aui:button name="deleteNoteButton" value="delete-note" onClick="javascript:deleteNote();"  />
+	</c:if>
+</aui:button-row>
+
+<div id="stickynotes" class="selectable">	
+	<%
+		List<stickyNote> lista = new ArrayList<stickyNote>();
+		boolean onlyuser = new Boolean(prefs.getValue("only-user","false"));
+		if (prefs.getValue("scope","scope-group").equals("scope-group") ){
+			if(onlyuser){
+				lista = stickyNoteLocalServiceUtil.getStickyNotesByGroupAndUser(scopeGroupId, themeDisplay.getUserId());
+			} else {
+				lista = stickyNoteLocalServiceUtil.getStickyNotesByGroup(scopeGroupId);
+			}
+		} else if(prefs.getValue("scope","").equals("scope-plid")) {
+			if(onlyuser) {
+				lista = stickyNoteLocalServiceUtil.getStickyNotesByPlidAndUser(themeDisplay.getLayout().getLayoutId(), themeDisplay.getUserId());							
+			} else {
+				lista = stickyNoteLocalServiceUtil.getStickyNotesByPlid(themeDisplay.getLayout().getLayoutId());				
+			}
+		} else {
+			lista = stickyNoteLocalServiceUtil.getStickyNotesByGroup(scopeGroupId);
+		}
+		for(stickyNote note : lista) {
+			String text = note.getText();
+			text = StringUtil.shorten(text, 70);
+			User usernote = UserLocalServiceUtil.fetchUser(note.getUserId());
+			%>
+	<div class="note <%= note.getColor() %> sizeMaxi" style="left:<%= note.getPositionX()%>%;top:<%= note.getPositionY()%>%;  z-index:<%= note.getPositionZ()%>">
+        <%= text %>     
+        <span class="data-note"><%=note.getStickyNoteId() %></span>
+        <img  class="avatar-note" alt="<%= HtmlUtil.escape(usernote.getFullName()) %>" class="user-logo" src="<%= usernote.getPortraitURL(themeDisplay) %>" style="width: 16%; position:absolute; bottom:5%; right:5%;"/>
+	</div>
+	
+			<%
+		}		
+	%>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		// Init buttons		
+		$('#<portlet:namespace/>editNoteButton').hide();
+		$('#<portlet:namespace/>deleteNoteButton').hide();
+		
+		// Finding the biggest z-index value of the notes
+		var tmp;				
+		$('.note').each(function(){
+			
+			tmp = $(this).css('z-index');
+			if(tmp>zIndex) zIndex = tmp;
+			$(this).css("height", $('.note').width()+"px");
+		})
+		<% if(hasMovePermission) { %>
+		//Make elements selectable/draggables and put events
+		make_selectable_draggable($('#main'));
+		<% }%>
+		//Calculate relative height
+		calculateHeight();		
+	});
+	
+	var zIndex = 0;
+	
+	function calculateHeight() {		
+		var boardWidth = $('#stickynotes').width();
+		var boardHeight = (boardWidth * 60) / 100;
+		$('#stickynotes').css("height", boardHeight+"px");	
+		
+		var noteHeight = $('note').height();		
+		var noteWidth = $('.note').width();
+		$('note').css("height",noteWidth+"px");
+	}
+	
+	function showPopup(url, dialogTitle){
+		AUI().use('aui-modal', 'aui-io', 'event', 'event-custom', 'liferay-util-window', function(A) {
+			Liferay.Util.openWindow({
+				dialog: {
+					centered: true,
+					modal: true,
+					height: 420,
+					width: 560
+				},
+				id: '<portlet:namespace/>dialog',
+				title: dialogTitle,
+				uri: url
+			});
+		});		
+	}
+	
+	<% if(hasAddPermission) {%>
+	function addNote(){
+		showPopup('<%= addNoteURL %>', '<liferay-ui:message key="new-note" />');
+	}
+	<%}%>
+	<%if(hasUpdatePermission) {%>
+	function editNote(){
+		var noteSelected = $(".selectable .note.ui-selected span.data-note").html();
+		if(noteSelected) {				
+			AUI().use("liferay-portlet-url", function(a) {
+				   var portletURL = Liferay.PortletURL.createRenderURL();
+				   portletURL.setPortletId("<%= portletDisplay.getId() %>");
+				   portletURL.setWindowState('POP_UP');
+				   portletURL.setPortletMode('view');
+				   portletURL.setParameter("stickyNoteId", noteSelected);
+				   portletURL.setParameter("editNote", "true");
+				   showPopup(portletURL.toString(), '<liferay-ui:message key="edit-note" />');
+			});				
+		}
+	}	
+	<%}%>
+	<% if(hasDeletePermission) {%>
+	function deleteNote() {		
+		var noteSelected = $(".selectable .note.ui-selected");
+		var noteSelectedId = $(".selectable .note.ui-selected span.data-note").html();	
+		if(noteSelectedId) {
+			if(confirm("<liferay-ui:message key="confirmation-delete-note" />")){			
+				$.ajax({
+					type: 'POST',
+					url: '<%= deleteNoteURL%>',
+					data: {								
+						<portlet:namespace/>stickyNoteId : noteSelectedId
+					},
+					success: function(a){								
+						$(noteSelected).remove();
+					}							
+				});		
+			}
+		}
+	}
+	<%}%>
+
+	<% if (hasMovePermission) { %>
+	
+	function make_selectable_draggable(elements) {
+		
+		elements.selectable({		
+			unselected:function(e,ui) {			   
+				$('#<portlet:namespace/>editNoteButton').hide();
+				$('#<portlet:namespace/>deleteNoteButton').hide();
+			}		
+		});
+	
+		$(".selectable .note").click(function(){
+		            if( !$(this).hasClass("ui-selected")) {
+		                $(this).addClass("ui-selected").siblings().removeClass("ui-selected");
+		            }	            
+		           	$('#<portlet:namespace/>editNoteButton').show(); 				
+					$('#<portlet:namespace/>deleteNoteButton').show();
+		    }
+		);
+		$(".selectable .note").dblclick(function(event) {
+			editNote();
+		});
+		    
+		$(".selectable .note").draggable({
+			containment:'parent',
+		    start: function(ev, ui) 
+		    {        
+		        if( !$(this).hasClass("ui-selected")) 
+		        {
+		            $(this).addClass("ui-selected").siblings().removeClass("ui-selected");
+		        }
+		        ui.helper.css('z-index',++zIndex);	       
+		    },
+		    stop: function(e,ui){
+		    	var percentTop = ui.position.top / ui.helper.parent().height() *  100;			
+				var percentLeft = ui.position.left / ui.helper.parent().width() * 100;			
+				$(this).css("left",percentLeft+'%');
+				$(this).css("top",percentTop+'%');
+		    	$.ajax({
+					type: 'POST',
+					url: '<%= updatePositionURL %>',
+					data: {
+						<portlet:namespace/>x: percentLeft,
+						<portlet:namespace/>y: percentTop,
+						<portlet:namespace/>z: zIndex,
+						<portlet:namespace/>id	: parseInt(ui.helper.find('span.data-note').html())
+					}
+				});
+		    }
+		});	
+	}
+	<%}%>
+
+	$('#stickynotes').resize(function(){		
+		var currentWidth = $('#stickynotes').width();
+		if(currentWidth <= 400) {
+			$('.note').removeClass("sizeMaxi").removeClass("sizeMedium").addClass("sizeMini");					
+		} else if(currentWidth>400 && currentWidth<800){
+			$('.note').removeClass("sizeMaxi").removeClass("sizeMini").addClass("sizeMedium");
+		} else if(currentWidth>=800) {
+			$('.note').removeClass("sizeMini").removeClass("sizeMedium").addClass("sizeMaxi");
+		}		
+	
+		$('.note').each(function(){
+			  $(this).css("height", $('.note').width()+"px");
+		});		
+		calculateHeight();
+	});
+</script>
+
+<aui:script>
+Liferay.provide(window, '<portlet:namespace/>saveNoteClosePopup', function(action, data, dialogId) {
+	var A = AUI();
+	var url = '<%= saveNewNoteURL %>';
+	if (action == 'update') {
+		url = '<%= saveUpdatedNoteURL %>';
+	}
+	$.ajax({
+		type: 'POST',
+		url: url,
+		data: data,
+		complete: function() {
+			// Closing the dialog
+			var dialog = Liferay.Util.Window.getById(dialogId);
+			dialog.destroy();
+			window.location = '<%= reloadURL %>';
+		}
+	});
+}, ['liferay-util-window']);
+
+Liferay.provide(window, '<portlet:namespace/>closePopup', function(dialogId) {
+	var dialog = Liferay.Util.Window.getById(dialogId);
+	dialog.destroy();
+}, ['liferay-util-window']);
+</aui:script>

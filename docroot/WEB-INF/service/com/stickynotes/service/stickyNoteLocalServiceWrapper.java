@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -17,12 +17,10 @@ package com.stickynotes.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link stickyNoteLocalService}.
- * </p>
+ * Provides a wrapper for {@link stickyNoteLocalService}.
  *
- * @author    mbelda
- * @see       stickyNoteLocalService
+ * @author mbelda
+ * @see stickyNoteLocalService
  * @generated
  */
 public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
@@ -39,6 +37,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the sticky note that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.stickynotes.model.stickyNote addstickyNote(
 		com.stickynotes.model.stickyNote stickyNote)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -51,6 +50,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @param stickyNoteId the primary key for the new sticky note
 	* @return the new sticky note
 	*/
+	@Override
 	public com.stickynotes.model.stickyNote createstickyNote(long stickyNoteId) {
 		return _stickyNoteLocalService.createstickyNote(stickyNoteId);
 	}
@@ -63,6 +63,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @throws PortalException if a sticky note with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.stickynotes.model.stickyNote deletestickyNote(long stickyNoteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -76,12 +77,14 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the sticky note that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.stickynotes.model.stickyNote deletestickyNote(
 		com.stickynotes.model.stickyNote stickyNote)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.deletestickyNote(stickyNote);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _stickyNoteLocalService.dynamicQuery();
 	}
@@ -93,6 +96,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -104,7 +108,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* Performs a dynamic query on the database and returns a range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.stickynotes.model.impl.stickyNoteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -113,6 +117,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -124,7 +129,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.stickynotes.model.impl.stickyNoteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -134,6 +139,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +157,31 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _stickyNoteLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
+	}
+
+	@Override
 	public com.stickynotes.model.stickyNote fetchstickyNote(long stickyNoteId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.fetchstickyNote(stickyNoteId);
@@ -170,12 +195,14 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @throws PortalException if a sticky note with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.stickynotes.model.stickyNote getstickyNote(long stickyNoteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.getstickyNote(stickyNoteId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -187,7 +214,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* Returns a range of all the sticky notes.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.stickynotes.model.impl.stickyNoteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of sticky notes
@@ -195,6 +222,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the range of sticky notes
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getstickyNotes(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -207,6 +235,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the number of sticky notes
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getstickyNotesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.getstickyNotesCount();
@@ -219,6 +248,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	* @return the sticky note that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.stickynotes.model.stickyNote updatestickyNote(
 		com.stickynotes.model.stickyNote stickyNote)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -226,24 +256,11 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	}
 
 	/**
-	* Updates the sticky note in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param stickyNote the sticky note
-	* @param merge whether to merge the sticky note with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the sticky note that was updated
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.stickynotes.model.stickyNote updatestickyNote(
-		com.stickynotes.model.stickyNote stickyNote, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _stickyNoteLocalService.updatestickyNote(stickyNote, merge);
-	}
-
-	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _stickyNoteLocalService.getBeanIdentifier();
 	}
@@ -253,10 +270,12 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_stickyNoteLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -264,6 +283,7 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 			arguments);
 	}
 
+	@Override
 	public com.stickynotes.model.stickyNote addstickyNote(
 		com.stickynotes.model.stickyNote newStickyNote, long userId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -271,12 +291,14 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 		return _stickyNoteLocalService.addstickyNote(newStickyNote, userId);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByGroup(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.getStickyNotesByGroup(groupId);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByGroupAndUser(
 		long groupId, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -284,11 +306,13 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 			userId);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByPlid(
 		long plid) throws com.liferay.portal.kernel.exception.SystemException {
 		return _stickyNoteLocalService.getStickyNotesByPlid(plid);
 	}
 
+	@Override
 	public java.util.List<com.stickynotes.model.stickyNote> getStickyNotesByPlidAndUser(
 		long plid, long userId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -296,24 +320,26 @@ public class stickyNoteLocalServiceWrapper implements stickyNoteLocalService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public stickyNoteLocalService getWrappedstickyNoteLocalService() {
 		return _stickyNoteLocalService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedstickyNoteLocalService(
 		stickyNoteLocalService stickyNoteLocalService) {
 		_stickyNoteLocalService = stickyNoteLocalService;
 	}
 
+	@Override
 	public stickyNoteLocalService getWrappedService() {
 		return _stickyNoteLocalService;
 	}
 
+	@Override
 	public void setWrappedService(stickyNoteLocalService stickyNoteLocalService) {
 		_stickyNoteLocalService = stickyNoteLocalService;
 	}

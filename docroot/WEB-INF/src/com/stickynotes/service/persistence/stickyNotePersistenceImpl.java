@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,8 +14,6 @@
 
 package com.stickynotes.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -31,13 +29,12 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
-import com.liferay.portal.service.persistence.ResourcePersistence;
-import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import com.stickynotes.NoSuchstickyNoteException;
@@ -51,6 +48,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistence implementation for the sticky note service.
@@ -86,11 +84,16 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 			stickyNoteModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 
+	public stickyNotePersistenceImpl() {
+		setModelClass(stickyNote.class);
+	}
+
 	/**
 	 * Caches the sticky note in the entity cache if it is enabled.
 	 *
 	 * @param stickyNote the sticky note
 	 */
+	@Override
 	public void cacheResult(stickyNote stickyNote) {
 		EntityCacheUtil.putResult(stickyNoteModelImpl.ENTITY_CACHE_ENABLED,
 			stickyNoteImpl.class, stickyNote.getPrimaryKey(), stickyNote);
@@ -103,6 +106,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 *
 	 * @param stickyNotes the sticky notes
 	 */
+	@Override
 	public void cacheResult(List<stickyNote> stickyNotes) {
 		for (stickyNote stickyNote : stickyNotes) {
 			if (EntityCacheUtil.getResult(
@@ -169,6 +173,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @param stickyNoteId the primary key for the new sticky note
 	 * @return the new sticky note
 	 */
+	@Override
 	public stickyNote create(long stickyNoteId) {
 		stickyNote stickyNote = new stickyNoteImpl();
 
@@ -186,9 +191,10 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @throws com.stickynotes.NoSuchstickyNoteException if a sticky note with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public stickyNote remove(long stickyNoteId)
 		throws NoSuchstickyNoteException, SystemException {
-		return remove(Long.valueOf(stickyNoteId));
+		return remove((Serializable)stickyNoteId);
 	}
 
 	/**
@@ -242,7 +248,14 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, stickyNote);
+			if (!session.contains(stickyNote)) {
+				stickyNote = (stickyNote)session.get(stickyNoteImpl.class,
+						stickyNote.getPrimaryKeyObj());
+			}
+
+			if (stickyNote != null) {
+				session.delete(stickyNote);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -251,14 +264,16 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 			closeSession(session);
 		}
 
-		clearCache(stickyNote);
+		if (stickyNote != null) {
+			clearCache(stickyNote);
+		}
 
 		return stickyNote;
 	}
 
 	@Override
-	public stickyNote updateImpl(com.stickynotes.model.stickyNote stickyNote,
-		boolean merge) throws SystemException {
+	public stickyNote updateImpl(com.stickynotes.model.stickyNote stickyNote)
+		throws SystemException {
 		stickyNote = toUnwrappedModel(stickyNote);
 
 		boolean isNew = stickyNote.isNew();
@@ -268,9 +283,14 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, stickyNote, merge);
+			if (stickyNote.isNew()) {
+				session.save(stickyNote);
 
-			stickyNote.setNew(false);
+				stickyNote.setNew(false);
+			}
+			else {
+				session.merge(stickyNote);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -322,13 +342,24 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 *
 	 * @param primaryKey the primary key of the sticky note
 	 * @return the sticky note
-	 * @throws com.liferay.portal.NoSuchModelException if a sticky note with the primary key could not be found
+	 * @throws com.stickynotes.NoSuchstickyNoteException if a sticky note with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public stickyNote findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchstickyNoteException, SystemException {
+		stickyNote stickyNote = fetchByPrimaryKey(primaryKey);
+
+		if (stickyNote == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchstickyNoteException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return stickyNote;
 	}
 
 	/**
@@ -339,20 +370,10 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @throws com.stickynotes.NoSuchstickyNoteException if a sticky note with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public stickyNote findByPrimaryKey(long stickyNoteId)
 		throws NoSuchstickyNoteException, SystemException {
-		stickyNote stickyNote = fetchByPrimaryKey(stickyNoteId);
-
-		if (stickyNote == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + stickyNoteId);
-			}
-
-			throw new NoSuchstickyNoteException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				stickyNoteId);
-		}
-
-		return stickyNote;
+		return findByPrimaryKey((Serializable)stickyNoteId);
 	}
 
 	/**
@@ -365,7 +386,42 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	@Override
 	public stickyNote fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
+		stickyNote stickyNote = (stickyNote)EntityCacheUtil.getResult(stickyNoteModelImpl.ENTITY_CACHE_ENABLED,
+				stickyNoteImpl.class, primaryKey);
+
+		if (stickyNote == _nullstickyNote) {
+			return null;
+		}
+
+		if (stickyNote == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				stickyNote = (stickyNote)session.get(stickyNoteImpl.class,
+						primaryKey);
+
+				if (stickyNote != null) {
+					cacheResult(stickyNote);
+				}
+				else {
+					EntityCacheUtil.putResult(stickyNoteModelImpl.ENTITY_CACHE_ENABLED,
+						stickyNoteImpl.class, primaryKey, _nullstickyNote);
+				}
+			}
+			catch (Exception e) {
+				EntityCacheUtil.removeResult(stickyNoteModelImpl.ENTITY_CACHE_ENABLED,
+					stickyNoteImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return stickyNote;
 	}
 
 	/**
@@ -375,45 +431,10 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @return the sticky note, or <code>null</code> if a sticky note with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public stickyNote fetchByPrimaryKey(long stickyNoteId)
 		throws SystemException {
-		stickyNote stickyNote = (stickyNote)EntityCacheUtil.getResult(stickyNoteModelImpl.ENTITY_CACHE_ENABLED,
-				stickyNoteImpl.class, stickyNoteId);
-
-		if (stickyNote == _nullstickyNote) {
-			return null;
-		}
-
-		if (stickyNote == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				stickyNote = (stickyNote)session.get(stickyNoteImpl.class,
-						Long.valueOf(stickyNoteId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (stickyNote != null) {
-					cacheResult(stickyNote);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(stickyNoteModelImpl.ENTITY_CACHE_ENABLED,
-						stickyNoteImpl.class, stickyNoteId, _nullstickyNote);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return stickyNote;
+		return fetchByPrimaryKey((Serializable)stickyNoteId);
 	}
 
 	/**
@@ -422,6 +443,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @return the sticky notes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<stickyNote> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -430,7 +452,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * Returns a range of all the sticky notes.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.stickynotes.model.impl.stickyNoteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of sticky notes
@@ -438,6 +460,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @return the range of sticky notes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<stickyNote> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -447,7 +470,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * Returns an ordered range of all the sticky notes.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.stickynotes.model.impl.stickyNoteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param start the lower bound of the range of sticky notes
@@ -456,13 +479,16 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @return the ordered range of sticky notes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<stickyNote> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
-		Object[] finderArgs = new Object[] { start, end, orderByComparator };
+		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
+			pagination = false;
 			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
 			finderArgs = FINDER_ARGS_EMPTY;
 		}
@@ -490,7 +516,11 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 				sql = query.toString();
 			}
 			else {
-				sql = _SQL_SELECT_STICKYNOTE.concat(stickyNoteModelImpl.ORDER_BY_JPQL);
+				sql = _SQL_SELECT_STICKYNOTE;
+
+				if (pagination) {
+					sql = sql.concat(stickyNoteModelImpl.ORDER_BY_JPQL);
+				}
 			}
 
 			Session session = null;
@@ -500,30 +530,29 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 
 				Query q = session.createQuery(sql);
 
-				if (orderByComparator == null) {
+				if (!pagination) {
 					list = (List<stickyNote>)QueryUtil.list(q, getDialect(),
 							start, end, false);
 
 					Collections.sort(list);
+
+					list = new UnmodifiableList<stickyNote>(list);
 				}
 				else {
 					list = (List<stickyNote>)QueryUtil.list(q, getDialect(),
 							start, end);
 				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -536,6 +565,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (stickyNote stickyNote : findAll()) {
 			remove(stickyNote);
@@ -548,6 +578,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	 * @return the number of sticky notes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -561,23 +592,27 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 				Query q = session.createQuery(_SQL_COUNT_STICKYNOTE);
 
 				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
 					FINDER_ARGS_EMPTY, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY);
 
+				throw processException(e);
+			}
+			finally {
 				closeSession(session);
 			}
 		}
 
 		return count.intValue();
+	}
+
+	@Override
+	protected Set<String> getBadColumnNames() {
+		return _badColumnNames;
 	}
 
 	/**
@@ -594,7 +629,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<stickyNote>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
@@ -608,15 +643,10 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	public void destroy() {
 		EntityCacheUtil.removeCache(stickyNoteImpl.class.getName());
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = stickyNotePersistence.class)
-	protected stickyNotePersistence stickyNotePersistence;
-	@BeanReference(type = ResourcePersistence.class)
-	protected ResourcePersistence resourcePersistence;
-	@BeanReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_STICKYNOTE = "SELECT stickyNote FROM stickyNote stickyNote";
 	private static final String _SQL_COUNT_STICKYNOTE = "SELECT COUNT(stickyNote) FROM stickyNote stickyNote";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "stickyNote.";
@@ -624,6 +654,9 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(stickyNotePersistenceImpl.class);
+	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+				"text"
+			});
 	private static stickyNote _nullstickyNote = new stickyNoteImpl() {
 			@Override
 			public Object clone() {
@@ -637,6 +670,7 @@ public class stickyNotePersistenceImpl extends BasePersistenceImpl<stickyNote>
 		};
 
 	private static CacheModel<stickyNote> _nullstickyNoteCacheModel = new CacheModel<stickyNote>() {
+			@Override
 			public stickyNote toEntityModel() {
 				return _nullstickyNote;
 			}
