@@ -107,7 +107,7 @@ public class StickyNotesPortlet extends MVCPortlet {
 				note.setPositionY(y);
 				note.setPositionZ(z);
 				stickyNoteLocalServiceUtil.updatestickyNote(note);
-			} catch (PortalException|SystemException e) {
+			} catch (Exception e) {
 				log.error("Error updating note [" + id + "] position: " + e.getMessage());
 				if (log.isDebugEnabled()) {
 					log.debug("Error updating note [" + id + "] position.", e);
@@ -119,7 +119,7 @@ public class StickyNotesPortlet extends MVCPortlet {
 				stickyNoteLocalServiceUtil.deletestickyNote(noteId);
 				PrintWriter writer = resourceResponse.getWriter();
 				writer.print("success");
-			} catch (PortalException|SystemException e) {
+			} catch (Exception e) {
 				log.error("Error deleting note [" + noteId + "]: " + e.getMessage());
 				if (log.isDebugEnabled()) {
 					log.debug("Error deleting note [" + noteId + "].", e);
